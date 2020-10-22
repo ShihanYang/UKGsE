@@ -13,56 +13,42 @@
 ================================================================================
 """
 
-import os
-import numpy as np
-from gensim.models.word2vec import LineSentence
-import multiprocessing
-from gensim.models import Word2Vec
-import sys
-import logging
-import time
+def pre_training(dataset, dimension):
+    import os
+    from gensim.models.word2vec import LineSentence
+    import multiprocessing
+    from gensim.models import Word2Vec
+    import sys
+    import logging
+    import time
 
-program = os.path.basename(sys.argv[0])
-# print('program:', program)
-logger = logging.getLogger(program)
-logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s')
-logging.root.setLevel(level=logging.ERROR)
+    program = os.path.basename(sys.argv[0])
+    # print('program:', program)
+    logger = logging.getLogger(program)
+    logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s')
+    logging.root.setLevel(level=logging.ERROR)
 
-start = time.time()
+    start = time.time()
 
-base = os.path.abspath("..") + '\\data\\ppi5k\\'
-corpus = base + 'train.tsv.txt'
-total_triples = 249946  # ppi5k
-# total_triples = 215451   # cn15k
-dim = 128  # the dimension of embedding vectors
-# print("args:", sys.argv, corpus, dim)
-vectors = corpus + str(dim) + '_sg.w2v'
+    base = os.path.abspath("..") + '\\data\\'+dataset+'\\'
+    corpus = base + 'train.tsv.txt'
+    if dataset == 'ppi5k':
+        total_triples = 249946  # ppi5k
+    if dataset == 'cn15k':
+        total_triples = 215451   # cn15k
+    dim = dimension  # the dimension of embedding vectors
+    # print("args:", sys.argv, corpus, dim)
+    vectors = corpus + str(dim) + '_sg.w2v'
 
-model = Word2Vec(LineSentence(corpus), size=int(dim), window=2, sample=0,
-                 iter=10, negative=5, min_count=1,
-                 sg=1, # skip_gram (1) or CBOW (0), seems CBOW more reasonable
-                 workers=multiprocessing.cpu_count())
+    model = Word2Vec(LineSentence(corpus), size=int(dim), window=2, sample=0,
+                     iter=10, negative=5, min_count=1,
+                     sg=1, # skip_gram (1) or CBOW (0), seems CBOW more reasonable
+                     workers=multiprocessing.cpu_count())
 
-model.init_sims(replace=True)
-model.wv.save_word2vec_format(vectors)
+    model.init_sims(replace=True)
+    model.wv.save_word2vec_format(vectors)
 
-time_consumed = time.time() - start
+    time_consumed = time.time() - start
 
-print('Time Consumed(s):', time_consumed)
-print('Rate (triples/s):', total_triples/time_consumed)
-
-'''
-m = model.most_similar('4176')
-print(m)
-print(model.similarity('4001', '4176'))  # 4001	r5 4176 [0.329] first item in training set
-print(model.similarity('4001', 'r5'))
-print(model.similarity('4176', 'r5'))
-
-print(model.most_similar('0'))
-print(model.similarity('3810', '4338'))  # 3810	r0 4338 [0.345]  second item in training set
-print(model.similarity('3810', 'r0'))
-
-print(model.similarity('4001', '3810'))
-print(model.similarity('4001', '4338'))
-print(model.similarity('r0', 'r5'))
-'''
+    print('Time Consumed(s):', time_consumed)
+    print('Rate (triples/s):', total_triples/time_consumed)

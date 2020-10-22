@@ -15,7 +15,7 @@ To run the experiments, use:
     
 or 
 
-    python ukgse.py --dataset ppi5k 
+    python ukgse.py --dataset ppi5k --dimension 128 --batchsize 128 --epochs 200
     
 ## Dataset
 Here two experiment datasets, CN15k and PPI5k, are provided in separate folders.
@@ -33,6 +33,3 @@ Here two experiment datasets, CN15k and PPI5k, are provided in separate folders.
 
 ## Reference
 Project is under way. Sorry for any bothering you.
-      
-
-
