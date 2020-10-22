@@ -32,4 +32,4 @@ Here two experiment datasets, CN15k and PPI5k, are provided in separate folders.
         relation_id.csv
 
 ## Reference
-Project is under way. Sorry for any bothering you.
+*Project is under way. Sorry for any bothering you.*
