@@ -1,9 +1,35 @@
-# Fast and Effective Uncertain Knowledge Graph Embedding
+# UKG$_s$E
+These codes implement UKG$_s$E model by *pytorch* and *gensim* in the python language, which provides the fast but effective Knowledge Graphs Embedding and more accurate confidence prediction on uncertainty of relation facts in KG. Some kinds of approximate knowledge reasoning can also be done in the Uncertain Knowledge Graph Embedding (UKGE) space. 
+
+## Install
+Local environment should be equal to or above as following:
+
+    python 3.6
+    pytorch 1.6 (with Theano 1.0.1 backend)
+    gensim 3.8.3
+
+## Usage
+To run the experiments, use:
+
+    python ukgse.py
     
-    1. data.py - probe the datasets
-    2. confidence.py 1st - ready step 1 data without confidence for embedding
-    3. embedding.py - embedding triples into vectors (dim = 64,100,128)
-    4. confidence.py 2nd - ready step 2 data with confidence for LSTM
-    5. nnet.py - training models with different hyper-parameters setting
-    6. hitMetrics.py - evaluate the KG without confidence by hits@X
-    7. metrics.py - evaluate the UKG predication by MSE and MAE
+or 
+
+    python ukgse.py --dataset ppi5k 
+    
+## Dataset
+Here two experiment datasets, CN15k and PPI5k, are provided in separate folders.
+
+    cn15k:
+        train.tsv  # each line likes 'head_id, relation_id, tail_id, confidence value'
+        test.tsv
+        entity_id.csv  # each line likes 'entity_name, entity_id'
+        relation_id.csv
+    ppi5k:
+        train.tsv
+        test.tsv
+        entity_id.csv
+        relation_id.csv
+        
+
+
