@@ -20,6 +20,7 @@ from keras.models import load_model
 
 
 def evaluate(dataset, model_file='model_e80_128d_sg.h5'):
+    print('Evaluate the model on test dataset ... ...')
     base = os.path.abspath('..') + '\\data\\' + dataset + '\\'
     embedding_file = base + 'train.tsv.txt128_sg.w2v'
     model = load_model(base + model_file)  # best result recorded by checkpoints
@@ -78,7 +79,7 @@ def evaluate(dataset, model_file='model_e80_128d_sg.h5'):
     mae = ae / len(test_triples)
     print('MSE:', mse)
     print('MAE:', mae)
-    print('MSE and MAE FINISHED.')
+    print('Testing on MSE and MAE are FINISHED.')
 
 
 if __name__ == '__main__':
