@@ -12,37 +12,34 @@
     2. How to handle confidence embedding?
 ================================================================================
 """
+import os
+from gensim.models.word2vec import LineSentence
+import multiprocessing
+from gensim.models import Word2Vec
+import sys
+import logging
+import time
+from src.count import number_of_triples
+
 
 def pre_training(dataset, dimension):
-    import os
-    from gensim.models.word2vec import LineSentence
-    import multiprocessing
-    from gensim.models import Word2Vec
-    import sys
-    import logging
-    import time
 
     program = os.path.basename(sys.argv[0])
-    # print('program:', program)
-    logger = logging.getLogger(program)
+    logging.getLogger(program)
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s')
     logging.root.setLevel(level=logging.ERROR)
 
-    start = time.time()
-
     base = os.path.abspath("..") + '\\data\\'+dataset+'\\'
     corpus = base + 'train.tsv.txt'
-    if dataset == 'ppi5k':
-        total_triples = 249946  # ppi5k
-    if dataset == 'cn15k':
-        total_triples = 215451   # cn15k
-    dim = dimension  # the dimension of embedding vectors
-    # print("args:", sys.argv, corpus, dim)
+    total_triples = number_of_triples(dataset)  # number of no-repeat triples in training dataset
+    dim = dimension
     vectors = corpus + str(dim) + '_sg.w2v'
+
+    start = time.time()
 
     model = Word2Vec(LineSentence(corpus), size=int(dim), window=2, sample=0,
                      iter=10, negative=5, min_count=1,
-                     sg=1, # skip_gram (1) or CBOW (0), seems CBOW more reasonable
+                     sg=1,  # skip_gram (1) or CBOW (0)
                      workers=multiprocessing.cpu_count())
 
     model.init_sims(replace=True)
@@ -52,3 +49,7 @@ def pre_training(dataset, dimension):
 
     print('Time Consumed(s):', time_consumed)
     print('Rate (triples/s):', total_triples/time_consumed)
+
+
+if __name__ == '__main__':
+    pre_training('ppi5k', 128)

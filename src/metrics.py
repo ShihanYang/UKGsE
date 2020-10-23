@@ -13,17 +13,16 @@
     3. MAE and MSE
 ================================================================================
 """
+import os
+import time
+import numpy as np
+from keras.models import load_model
 
 
-def evaluate(dataset):
-    import os
-    import time
-    import numpy as np
-    from keras.models import load_model
-
+def evaluate(dataset, model_file='model_e80_128d_sg.h5'):
     base = os.path.abspath('..') + '\\data\\' + dataset + '\\'
     embedding_file = base + 'train.tsv.txt128_sg.w2v'
-    model = load_model(base + 'model_e80_128d_sg.h5')  # best result recorded by checkpoints
+    model = load_model(base + model_file)  # best result recorded by checkpoints
     print('model:', model)
     model.summary()
     print('Model LOADED.')
@@ -65,7 +64,6 @@ def evaluate(dataset):
             else:
                 sentences[(ll[0], ll[1])].append(ll[2])
     print('Dictionary LOADED.')
-    time.sleep(0.1)  # for better show of tqdm progress bar
 
     # STEP: MSE and MAE
     se = 0.0
@@ -81,3 +79,7 @@ def evaluate(dataset):
     print('MSE:', mse)
     print('MAE:', mae)
     print('MSE and MAE FINISHED.')
+
+
+if __name__ == '__main__':
+    evaluate('ppi5k')

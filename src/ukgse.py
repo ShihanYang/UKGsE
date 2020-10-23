@@ -27,9 +27,9 @@ parser.add_argument('-batch', '--batchsize', type=int, default=128, help='the ba
 parser.add_argument('-epo', '--epochs', type=int, default=200, help='the maximus epochs of training')
 args = parser.parse_args()
 
-print(args)
+print('ALL INPUT ARGS: ', args)
 readydata(args.dataset, 'one')
 pre_training(args.dataset, args.dimension)
 readydata(args.dataset, 'two')
-training(args.dataset, args.dimension, args.batchsize, args.epochs)
-evaluate(args.dataset)
+model_file = training(args.dataset, args.dimension, args.batchsize, args.epochs)
+evaluate(args.dataset, model_file)

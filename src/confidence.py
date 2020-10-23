@@ -12,11 +12,12 @@
     2. read from .tsv file, handling confidence data, write to .tsv.txt file
 ================================================================================
 """
+import os
+
 
 def readydata(dataset, step):
-    import os
     # dataset is 'ppi5k' or 'cn15k'
-    # step is one(without confidence) or two(with confidence)
+    # step is 'one'(without confidence) or 'two'(with confidence)
     base = os.path.abspath("..") + '\\data\\'
     dataset_id = dataset
 
@@ -28,7 +29,7 @@ def readydata(dataset, step):
     small_test_with_confidence_file = open(test_file + "_small.txt", 'w')
 
     # 文件中关系和实体都用数字编号，有重复的，故关系ID前加上前缀‘r’
-    small_size = 1000
+    small_size = 1000  # for quickly testing
     num = 0
     with open(train_file, 'r') as f1, open(test_file, 'r') as f2:
         lines = f1.readlines()

@@ -12,19 +12,20 @@
     2. sampling, modelling, fitting, predicating, evaluating by ranking
 ================================================================================
 """
+
+import os
+import time
+import numpy as np
+from keras import metrics, callbacks
+from keras.models import Sequential
+from keras.layers import Dense, LSTM
+from keras.optimizers import Adam
+from matplotlib import pyplot as plt
+from src import pickleloss
+from src.checkpoint import checkpoint_base, ukgeCheckpoint, get_last_status
+
+
 def training(dataset, dimension, batch_size, epochs):
-    import os
-    import time
-    import numpy as np
-    from keras import metrics, callbacks
-    from keras.models import Sequential
-    from keras.layers import Dense, LSTM
-    from keras.optimizers import Adam
-    from matplotlib import pyplot as plt
-
-    from src import pickleloss
-    from src.checkpoint import checkpoint_base, ukgeCheckpoint, get_last_status
-
     base = os.path.abspath('..') + '\\data\\' + dataset + '\\'
     embedding_file = base + 'train.tsv.txt'+str(dimension)+'_sg.w2v'
     train_file = base + 'train.tsv.txt'
@@ -128,8 +129,8 @@ def training(dataset, dimension, batch_size, epochs):
     model.summary()
     loss = 'mean_squared_error'
     optimizer = Adam(lr=0.001, beta_1=0.9, beta_2=0.99, epsilon=1e-08, decay=0.0)
-    model.compile(loss=loss, optimizer=optimizer, metrics=[metrics.mae]) # mae and mse(=loss assigned above)
-    print('Begin training .... ...')
+    model.compile(loss=loss, optimizer=optimizer, metrics=[metrics.mae])  # mae and mse(=loss assigned above)
+    print('Begin training (confidence learning) .... ...')
     X_train = np.asarray(X_train)
     y_train = np.asarray(y_train)
     print('X_train shape:', X_train.shape)
@@ -152,7 +153,7 @@ def training(dataset, dimension, batch_size, epochs):
 
     history = model.fit(shuffled_X_train, shuffled_y_train, validation_split=0.1111,  # VIP
                         epochs=epochs, batch_size=batch_size, shuffle=True, verbose=2,  # bs = 64, 128
-                        callbacks=[  # callback,   # early stopping
+                        callbacks=[callback,   # early stopping
                                    checkpoint],    # check points
                         initial_epoch=last_epoch + 1)
 
@@ -176,3 +177,9 @@ def training(dataset, dimension, batch_size, epochs):
     plt.ylabel('loss')
     plt.legend(['MSE', 'val_MSE', 'MAE', 'val_MAE'], loc='lower right')
     plt.show()
+
+    return model_file
+
+
+if __name__ == '__main__':
+    training('ppi5k', 128, 128, 200)
