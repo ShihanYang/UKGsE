@@ -178,8 +178,9 @@ def training(dataset, dimension, batch_size, epochs):
     plt.legend(['MSE', 'val_MSE', 'MAE', 'val_MAE'], loc='lower right')
     plt.show()
 
-    return model_file
+    return os.path.split(model_file)[1]
 
 
 if __name__ == '__main__':
-    training('ppi5k', 128, 128, 200)
+    model_file = training('ppi5k', 128, 64, 200)
+    print(model_file)
