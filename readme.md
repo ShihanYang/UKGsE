@@ -11,11 +11,11 @@ Local environment should be equal to or above as following:
 ## Usage
 To run the experiments, use:
 
-    python ukgse.py
+    python ./src/ukgse.py
     
 or 
 
-    python ukgse.py --dataset ppi5k --dimension 128 --batchsize 128 --epochs 200
+    python ./src/ukgse.py --dataset ppi5k --dimension 128 --batchsize 128 --epochs 200
     
 ## Dataset
 Here two experiment datasets, CN15k and PPI5k, are provided in separate folders.
