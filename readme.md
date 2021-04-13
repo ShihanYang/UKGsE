@@ -1,5 +1,5 @@
 # UKG<sub>s</sub>E
-These codes implement UKG<sub>s</sub>E model by *pytorch* and *gensim* in the python language, which provides the fast but effective Knowledge Graphs Embedding and more accurate confidence prediction on uncertainty of relation facts in KG. Some kinds of approximate knowledge reasoning can also be done in the Uncertain Knowledge Graph Embedding (UKGE) space. 
+These codes implement UKG<sub>s</sub>E model by *pytorch* and *gensim* in the python language, which provides the fast but effective Knowledge Graphs Embedding and more accurate confidence prediction on uncertainty of relation facts in KG. Some kinds of approximate knowledge reasoning can also be done in the Uncertain Knowledge Graph Embedding (UKGE) space. Now we are working on Question-Answering system by means of this model.
 
 ## Install
 Local environment should be equal to or above as following:
@@ -31,7 +31,7 @@ Here two experiment datasets, CN15k and PPI5k, are provided in separate folders.
         entity_id.csv
         relation_id.csv
 
-## Reference
+## Reference by bibtex
 @inproceedings{yang2020fast,
   title={Fast Confidence Prediction of Uncertainty based on Knowledge Graph Embedding},
   author={Yang, Shihan and Zhang, Weiya and Tang, Rui},
