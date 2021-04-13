@@ -32,12 +32,13 @@ Here two experiment datasets, CN15k and PPI5k, are provided in separate folders.
         relation_id.csv
 
 ## Reference by bibtex
-@inproceedings{yang2020fast,
-  title={Fast Confidence Prediction of Uncertainty based on Knowledge Graph Embedding},
-  author={Yang, Shihan and Zhang, Weiya and Tang, Rui},
-  booktitle={2020 3rd International Conference on Algorithms, Computing and Artificial Intelligence},
-  publisher = {Association for Computing Machinery},
-  address = {New York, NY, USA},
-  url = {https://doi.org/10.1145/3446132.3446186},
-  year={2020}
-}
+
+    @inproceedings{yang2020fast,
+      title={Fast Confidence Prediction of Uncertainty based on Knowledge Graph Embedding},
+      author={Yang, Shihan and Zhang, Weiya and Tang, Rui},
+      booktitle={2020 3rd International Conference on Algorithms, Computing and Artificial Intelligence},
+      publisher = {Association for Computing Machinery},
+      address = {New York, NY, USA},
+      url = {https://doi.org/10.1145/3446132.3446186},
+      year={2020}
+    }
