@@ -9,7 +9,7 @@
 @Version: 0.0.1
 @Functions: 
     1. To load trained model and predicate the score
-    2. then calculate hit@X, X = 1,3,10, and make some statistical graphs
+    2. then calculate hit@X, X = 1,3,10, and make some statistical graphs # TODO
     3. MAE and MSE
 ================================================================================
 """
