@@ -5,7 +5,7 @@ These codes implement UKG<sub>s</sub>E model by *pytorch* and *gensim* in the py
 Local environment should be equal to or above as following:
 
     python 3.6
-    pytorch 1.6 (with Theano 1.0.1 backend)
+    Keras 2.3.1 (with Theano 1.0.1 backend)
     gensim 3.8.3
 
 ## Usage
